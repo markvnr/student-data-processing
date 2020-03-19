@@ -1,0 +1,6 @@
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\obj\Debug\Student Data Processing.csprojAssemblyReference.cache
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\bin\Debug\Student Data Processing.exe.config
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\bin\Debug\Student Data Processing.exe
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\bin\Debug\Student Data Processing.pdb
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\obj\Debug\Student Data Processing.exe
+C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\obj\Debug\Student Data Processing.pdb

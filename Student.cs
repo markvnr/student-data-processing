@@ -29,16 +29,19 @@ namespace Student_Data_Processing
 
         public void SetName(string name)
         {
+            if(String.IsNullOrEmpty(name)) throw new Exception("Invalid name value!");
             this.name = name;
         }
 
         public void SetSurname(string surname)
         {
+            if (String.IsNullOrEmpty(surname)) throw new Exception("Invalid surname value!");
             this.surname = surname;
         }
 
         public void SetExamResult(int examResult)
         {
+            if (examResult < 0 || examResult > 10) throw new Exception("Invalid exam result value!");
             this.examResult = examResult;
         }
 
@@ -59,6 +62,7 @@ namespace Student_Data_Processing
 
         public void AddHomeworkResult(int result)
         {
+            if (result < 0 || result > 10) throw new Exception("Invalid homework result value!");
             this.homeworkResults.Add(result);
         }
 

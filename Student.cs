@@ -29,13 +29,13 @@ namespace Student_Data_Processing
 
         public void SetName(string name)
         {
-            if(String.IsNullOrEmpty(name)) throw new Exception("Invalid name value!");
+            if(string.IsNullOrEmpty(name)) throw new Exception("Invalid name value!");
             this.name = name;
         }
 
         public void SetSurname(string surname)
         {
-            if (String.IsNullOrEmpty(surname)) throw new Exception("Invalid surname value!");
+            if (string.IsNullOrEmpty(surname)) throw new Exception("Invalid surname value!");
             this.surname = surname;
         }
 
@@ -93,5 +93,6 @@ namespace Student_Data_Processing
 
             return 0.7 * this.examResult + 0.3 * median;
         }
+
     }
 }

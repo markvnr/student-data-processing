@@ -24,6 +24,7 @@ file 4 executed 916370 ms </br>
 the fifth release adds to the previous release and compares the time required for performing the operations of splitting the data and saving it in a file.</br>
 there different implemetations using list, linked list and queue.
 the elapsed time for each file using linked list and queue is given below:</br>
+</br>
 LinkedList:</br>
 file 1 executed 7362 ms </br>
 file 2 executed 17117 ms </br>

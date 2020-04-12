@@ -94,5 +94,27 @@ namespace Student_Data_Processing
             return 0.7 * this.examResult + 0.3 * median;
         }
 
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Student stud = (Student)obj;
+                return this.name.Equals(stud.name) && this.surname.Equals(stud.surname);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.name + this.surname).GetHashCode();
+        }
+        public override string ToString()
+        {
+            return this.name + " " + this.surname + " " + this.CalculateFinalPointsAverage();
+        }
+
     }
 }

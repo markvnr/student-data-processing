@@ -316,6 +316,108 @@ namespace Student_Data_Processing
             }
             return elapsedTime;
         }
+        static void SplitStudentsList1(List<Student> students, List<Student> passed, List<Student> failed) {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            for (int i = 0; i < students.Count; i++) {
+                if (students[i].CalculateFinalPointsAverage() < 5.0)
+                {
+                    failed.Add(students[i]);
+                }
+                else {
+                    passed.Add(students[i]);
+                }
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+        }
+        static void SplitStudentsList2(List<Student> students, List<Student> failed)
+        {
+            students.Sort((stud1,stud2) => (int)(stud1.CalculateFinalPointsAverage() - stud2.CalculateFinalPointsAverage()));
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
+            for (int i=0;i<students.Count;i++)
+            {
+                if (students[i].CalculateFinalPointsAverage() < 5.0){ 
+                    failed.Add(students[i]);
+                    students.RemoveAt(i);
+                }
+                    
+                
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+        }
+        static void SplitStudentsLinkedList1(LinkedList<Student> students,LinkedList<Student> passed,LinkedList<Student> failed) {
+            LinkedListNode<Student> current = students.First;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (current != null) {
+                if (current.Value.CalculateFinalPointsAverage() < 5.0)
+                {
+                    failed.AddLast(current.Value);
+                }
+                else {
+                    passed.AddLast(current.Value);
+                }
+
+                current = current.Next;
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+        }
+        static void SplitStudentsLinkedList2(LinkedList<Student> students, LinkedList<Student> failed) {
+            LinkedListNode<Student> current = students.First;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (current != null) {
+                if (current.Value.CalculateFinalPointsAverage() < 5.0) {
+                    failed.AddLast(current.Value);
+                    students.Remove(current.Value);
+                }
+                current = current.Next;
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed {0} ms",stopwatch.ElapsedMilliseconds);
+        }
+        static void SplitStudentsQueue1(Queue<Student> students,Queue<Student> passed,Queue<Student> failed) {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (students.Count != 0) {
+                Student stud = students.Dequeue();
+                if (stud.CalculateFinalPointsAverage() < 5.0)
+                {
+                    failed.Enqueue(stud);
+                }
+                else {
+                    passed.Enqueue(stud);
+                }
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed {0} ms",stopwatch.ElapsedMilliseconds);
+        }
+        static void SplitStudentsQueue2(Queue<Student> students, Queue<Student> failed)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int count = students.Count;
+            while (count>0)
+            {
+                Student stud = students.Dequeue();
+                if (stud.CalculateFinalPointsAverage() < 5.0)
+                {
+                    failed.Enqueue(stud);
+                }
+                else {
+                    students.Enqueue(stud);
+                }
+
+                count--;
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed {0} ms", stopwatch.ElapsedMilliseconds);
+        }
 
 
         static void Main(string[] args)
@@ -328,12 +430,14 @@ namespace Student_Data_Processing
                 Console.WriteLine("3. display data (average)");
                 Console.WriteLine("4. display data (median)");
                 Console.WriteLine("5. generate student list");
-                Console.WriteLine("6. close");
+                Console.WriteLine("6. split students");
+                Console.WriteLine("7. close");
                 int menuItem = int.Parse(Console.ReadLine());
                 if (menuItem == 1)
                 {
                     List<Student> newStudents = GetStudentsFromInput();
                     students.AddRange(newStudents);
+
                 }
                 else if (menuItem == 2)
                 {
@@ -359,15 +463,32 @@ namespace Student_Data_Processing
                         Console.WriteLine("{0,-10} {1,-10} {2:0.00}", student.GetSurname(), student.GetName(), student.CalculateFinalPointsMedian());
                     }
                 }
-                else if (menuItem == 5) {
+                else if (menuItem == 5)
+                {
                     List<long> elapsed = GenerateFilesWithList();
-                    for(int i = 0; i < elapsed.Count; i++)
+                    for (int i = 0; i < elapsed.Count; i++)
                     {
-                        Console.WriteLine("file {0} executed {1}",i+1,elapsed[i]);
+                        Console.WriteLine("file {0} executed {1}", i + 1, elapsed[i]);
 
                     }
                 }
-                else if (menuItem == 6)
+                else if (menuItem == 6) {
+                    LinkedList<Student> studentz = GenerateLinkedListStudents(10000);
+                    LinkedList<Student> failed = new LinkedList<Student>();
+                    //LinkedList<Student> passed = new LinkedList<Student>();
+                    SplitStudentsLinkedList2(studentz,failed);
+                    Console.WriteLine("passed: ");
+                    foreach (Student stud in studentz) {
+                        Console.WriteLine(stud);
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("failed: ");
+                    foreach (Student stud in failed)
+                    {
+                        Console.WriteLine(stud);
+                    }
+                }
+                else if (menuItem == 7)
                 {
                     Console.WriteLine("program terminated!");
                     Console.ReadKey();

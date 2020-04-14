@@ -60,6 +60,10 @@ namespace Student_Data_Processing
             return this.examResult;
         }
 
+        public List<int> GetHomeworkResults() {
+            return this.homeworkResults;
+        }
+
         public void AddHomeworkResult(int result)
         {
             if (result < 0 || result > 10) throw new Exception("Invalid homework result value!");

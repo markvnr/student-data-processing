@@ -62,9 +62,9 @@ namespace Student_Data_Processing
        
             return students;
         }
-        static List<Student> GetStudentsFromFile() {
+        static List<Student> GetStudentsFromFile(string fileName){
             List<Student> students = new List<Student>();
-            string path = @"C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\students.txt";
+            string path = @"C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\" + fileName;
             
 
             try
@@ -317,8 +317,6 @@ namespace Student_Data_Processing
             return elapsedTime;
         }
         static void SplitStudentsList1(List<Student> students, List<Student> passed, List<Student> failed) {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             for (int i = 0; i < students.Count; i++) {
                 if (students[i].CalculateFinalPointsAverage() < 5.0)
                 {
@@ -328,31 +326,23 @@ namespace Student_Data_Processing
                     passed.Add(students[i]);
                 }
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
         }
         static void SplitStudentsList2(List<Student> students, List<Student> failed)
         {
-            students.Sort((stud1,stud2) => (int)(stud1.CalculateFinalPointsAverage() - stud2.CalculateFinalPointsAverage()));
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            
+            students.Sort((stud1,stud2) => (stud1.CalculateFinalPointsAverage()
+                                                 .CompareTo(stud2.CalculateFinalPointsAverage())));
+            int middle = students.FindIndex((Student stud) => stud.CalculateFinalPointsAverage() >= 5.0);
             for (int i=0;i<students.Count;i++)
             {
                 if (students[i].CalculateFinalPointsAverage() < 5.0){ 
                     failed.Add(students[i]);
                     students.RemoveAt(i);
-                }
-                    
-                
+               }  
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+            //students.RemoveRange(0,middle);
         }
         static void SplitStudentsLinkedList1(LinkedList<Student> students,LinkedList<Student> passed,LinkedList<Student> failed) {
             LinkedListNode<Student> current = students.First;
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             while (current != null) {
                 if (current.Value.CalculateFinalPointsAverage() < 5.0)
                 {
@@ -364,26 +354,19 @@ namespace Student_Data_Processing
 
                 current = current.Next;
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
         }
         static void SplitStudentsLinkedList2(LinkedList<Student> students, LinkedList<Student> failed) {
             LinkedListNode<Student> current = students.First;
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             while (current != null) {
+                LinkedListNode<Student> nextNode = current.Next;
                 if (current.Value.CalculateFinalPointsAverage() < 5.0) {
                     failed.AddLast(current.Value);
                     students.Remove(current.Value);
                 }
-                current = current.Next;
+                current = nextNode;
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed {0} ms",stopwatch.ElapsedMilliseconds);
         }
         static void SplitStudentsQueue1(Queue<Student> students,Queue<Student> passed,Queue<Student> failed) {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             while (students.Count != 0) {
                 Student stud = students.Dequeue();
                 if (stud.CalculateFinalPointsAverage() < 5.0)
@@ -394,13 +377,9 @@ namespace Student_Data_Processing
                     passed.Enqueue(stud);
                 }
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed {0} ms",stopwatch.ElapsedMilliseconds);
         }
         static void SplitStudentsQueue2(Queue<Student> students, Queue<Student> failed)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             int count = students.Count;
             while (count>0)
             {
@@ -415,15 +394,19 @@ namespace Student_Data_Processing
 
                 count--;
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time Elapsed {0} ms", stopwatch.ElapsedMilliseconds);
         }
-
+        static void GenerateFile() {
+            List<Student> students = GenerateListStudents(10000);
+            string path = @"C:\Users\mark\Documents\VGTU files\IDE\Student Data Processing\file.txt";
+            using (StreamWriter sw = new StreamWriter(path, false)) {
+                students.ForEach((Student stud) => sw.WriteLine(stud.GetSurname() + " " + stud.GetName() + " " + string.Join(" ",stud.GetHomeworkResults()) + " " + stud.GetExamResult()));
+                sw.Flush();
+            }
+        }
 
         static void Main(string[] args)
         {
             List<Student> students = new List<Student>();
-
             while (true) {
                 Console.WriteLine("1. read from input");
                 Console.WriteLine("2. read from file");
@@ -441,7 +424,7 @@ namespace Student_Data_Processing
                 }
                 else if (menuItem == 2)
                 {
-                    List<Student> newStudents = GetStudentsFromFile();
+                    List<Student> newStudents = GetStudentsFromFile("students.txt");
                     students.AddRange(newStudents);
                     Console.WriteLine("data loaded!");
                 }
@@ -466,6 +449,7 @@ namespace Student_Data_Processing
                 else if (menuItem == 5)
                 {
                     List<long> elapsed = GenerateFilesWithList();
+                   
                     for (int i = 0; i < elapsed.Count; i++)
                     {
                         Console.WriteLine("file {0} executed {1}", i + 1, elapsed[i]);
@@ -473,20 +457,25 @@ namespace Student_Data_Processing
                     }
                 }
                 else if (menuItem == 6) {
-                    LinkedList<Student> studentz = GenerateLinkedListStudents(10000);
-                    LinkedList<Student> failed = new LinkedList<Student>();
-                    //LinkedList<Student> passed = new LinkedList<Student>();
-                    SplitStudentsLinkedList2(studentz,failed);
-                    Console.WriteLine("passed: ");
-                    foreach (Student stud in studentz) {
+                    List<Student> studentz = GetStudentsFromFile("file.txt");
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+                    List<Student> failed = new List<Student>();
+                    List<Student> passed = new List<Student>();
+                    SplitStudentsList1(studentz,passed,failed);
+                    stopwatch.Stop();
+                    Console.WriteLine("passed students: ");
+                    foreach (Student stud in studentz)
+                    {
                         Console.WriteLine(stud);
                     }
                     Console.WriteLine();
-                    Console.WriteLine("failed: ");
+                    Console.WriteLine("failed students: ");
                     foreach (Student stud in failed)
                     {
                         Console.WriteLine(stud);
                     }
+                    Console.WriteLine("Time Elapsed {0} ms", stopwatch.ElapsedMilliseconds);
                 }
                 else if (menuItem == 7)
                 {

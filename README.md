@@ -42,3 +42,6 @@ the conclusion is that linked list works faster for this case.
 ## Release v1.0
 the final release tries to investigate the effect of different container type on the performance of splittng the data.</br>
 also, it compares two different strategies and investigates the effect of different algorithms on the performance of this process. 
+surprisingly, the first approach with the list is better in terms of performance.
+the first approach is to create two additional lists failed and passed.</br>
+scan the main list one by one and according to the reqiurements add the student to the approriate list. 

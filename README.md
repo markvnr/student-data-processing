@@ -40,4 +40,5 @@ file 4 executed 1045261 </br>
 the conclusion is that linked list works faster for this case.
 
 ## Release v1.0
-the final release tries to investigate the effect of different container type on the performance of splittng the data
+the final release tries to investigate the effect of different container type on the performance of splittng the data.</br>
+also, it compares two different strategies and investigates the effect of different algorithms on the performance of this process. 

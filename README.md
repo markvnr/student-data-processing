@@ -1,5 +1,9 @@
 # student-data-processing
-a console application in C# for collecting and calculating student's final result for a single subject
+a console application in C# for collecting and calculating student's final result for a single subject.
+
+## usage
+when running the program a menu will appear.</br>
+type a number and follow the instructions in the command line window.
 
 ## Release v0.1
 the first release allow to add students from input and calculate their final result based on average and median

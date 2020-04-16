@@ -5,7 +5,7 @@ a console application in C# for collecting and calculating student's final resul
 when running the program a menu will appear.</br>
 type a number and follow the instructions in the command line window.
 
-## Release [v0.1] (https://github.com/markvnr/student-data-processing/tree/f853c82bdc67f61e9e84f71dd8c0ddbddfa5f251) 
+## Release [v0.1](https://github.com/markvnr/student-data-processing/tree/f853c82bdc67f61e9e84f71dd8c0ddbddfa5f251) 
 the first release allow to add students from input and calculate their final result based on average and median
 
 ## Release v0.2

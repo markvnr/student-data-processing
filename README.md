@@ -8,14 +8,14 @@ type a number and follow the instructions in the command line window.
 ## Release [v0.1](https://github.com/markvnr/student-data-processing/tree/f853c82bdc67f61e9e84f71dd8c0ddbddfa5f251) 
 the first release allow to add students from input and calculate their final result based on average and median
 
-## Release v0.2
+## Release [v0.2](https://github.com/markvnr/student-data-processing/tree/ac6f537c55c8cbc522d004e77880ad887e8068b8)
 the second release adds the functionallity to add students from file
 
-## Release v0.3
+## Release [v0.3](https://github.com/markvnr/student-data-processing/tree/f82909bdc7794bfe2fab6ee6b3f31418e1f0179b)
 the third release adds exceptions and try/catch blocks
 the exceptions are used in the student class and the try/catch blocks are used wherever a new student is created
 
-## Release v0.4
+## Release [v0.4](https://github.com/markvnr/student-data-processing/tree/9f42cda1f103fb691a97da426efeea77249c4fff)
 the fourth release adds functionallity to generate 3 files with different amount of random studnet records in each 
 the data is grouped by the final points. studnets who got final points less than 5 are failed and those who got 5 and higher passed
 the elepsed time for each file is given below:</br>
@@ -24,7 +24,7 @@ file 2 executed 14744 ms </br>
 file 3 executed 94882 ms </br>
 file 4 executed 916370 ms </br>
 
-## Release  v0.5
+## Release  [v0.5](https://github.com/markvnr/student-data-processing/tree/9f42cda1f103fb691a97da426efeea77249c4fff)
 the fifth release adds to the previous release and compares the time required for performing the operations of splitting the data and saving it in a file.</br>
 there different implemetations using list, linked list and queue.
 the elapsed time for each file using linked list and queue is given below:</br>
@@ -43,7 +43,7 @@ file 4 executed 1045261 </br>
 </br>
 the conclusion is that linked list works faster for this case.
 
-## Release v1.0
+## Release [v1.0](https://github.com/markvnr/student-data-processing/tree/e7c0d582cd22b863aa80002efbccb5fdbc95f384)
 the final release tries to investigate the effect of different container type on the performance of splittng the data.</br>
 also, it compares two different strategies and investigates the effect of different algorithms on the performance of this process. 
 surprisingly, the first approach with the list is better in terms of performance.</br>
